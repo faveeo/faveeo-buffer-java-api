@@ -26,7 +26,7 @@ pipeline {
         stage('Compile and unit tests') {
             steps {
             	catchError {                    
-                	sh 'mvn -U clean install'
+                	sh 'mvn -U clean test install'
 				}
             }
         }
