@@ -1,6 +1,5 @@
 package com.faveeo.publishing.buffer.api;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.faveeo.publishing.buffer.api.representations.response.BufferErrorRepresentation;
 import com.faveeo.publishing.buffer.api.representations.response.BufferUpdateResponseRepresentation;
 import io.micrometer.core.instrument.Metrics;
@@ -40,7 +39,7 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             final Request request = call.request();
             final HttpUrl url = request.url();
             final URI uri = url.uri();
-            log.debug(BufferGateway.resourceBundle.getString("buffer.rest.call.with.success.response"), uri, response);
+            log.debug(BufferGatewayImpl.resourceBundle.getString("buffer.rest.call.with.success.response"), uri, response);
         }
         start.stop(okMeter);
         callback.onResponse(call, response);
@@ -56,10 +55,10 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             bufferErrorRepresentation = parsingErrorRepresentation(charStream);
 
             if (bufferErrorRepresentation == null) {
-                log.error(BufferGateway.resourceBundle.getString("error.creating.buffer.update.http.error"),
+                log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
                     execute.code(), exception);
             } else {
-                log.error(BufferGateway.resourceBundle.getString("error.creating.buffer.update.http.error.buffer.error"),
+                log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error.buffer.error"),
                     execute.code(),
                     bufferErrorRepresentation.code, bufferErrorRepresentation.message, exception);
             }
@@ -76,7 +75,7 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             bufferErrorRepresentation = BufferJacksonConfigFactory.getObjectMapper().readValue(charStream,
                 BufferErrorRepresentation.class);
         } catch (final IOException e) {
-            log.error(BufferGateway.resourceBundle.getString("could.not.parse.the.buffer.error.representation"), e);
+            log.error(BufferGatewayImpl.resourceBundle.getString("could.not.parse.the.buffer.error.representation"), e);
         }
         return bufferErrorRepresentation;
     }

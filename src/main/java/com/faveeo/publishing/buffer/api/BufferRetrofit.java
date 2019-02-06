@@ -45,7 +45,7 @@ public interface BufferRetrofit {
                                                @Query("access_token") String accessToken,
                                                @Query("page") int page,
                                                @Query("count") int count,
-                                               @Query("since") Integer timestamp,
+                                               @Query("since") Long timestamp,
                                                @Query("utc") boolean utc,
                                                @Query("filter") String filter);
 
