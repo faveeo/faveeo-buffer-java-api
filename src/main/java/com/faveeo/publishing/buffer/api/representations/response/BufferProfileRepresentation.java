@@ -1,16 +1,18 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.faveeo.pipeline.publishing.buffer.api.representations.BufferSchedule;
+import com.faveeo.publishing.buffer.api.representations.BufferSchedule;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class BufferProfileRepresentation {
 
     public String avatar;
     public long created_at;
-    @JsonProperty("default")
+    @JsonProperty("default") //NON-NLS
     public boolean _default;
     public String formatted_username;
     public String id;
@@ -18,16 +20,16 @@ public class BufferProfileRepresentation {
     public String service;
     public String service_id;
     public String service_username;
-    public HashMap<String, String> statistics;
+    public Map<String, String> statistics;
     public List<HashMap<String, String>> team_members;
     public String timezone;
     public String user_id;
 
-    public Long followers() {
-        if(statistics != null && statistics.containsKey("followers")) {
-            return Long.parseLong(statistics.get("followers"));
+    public Optional<Long> followers() {
+        if (statistics != null && statistics.containsKey("followers")) { //NON-NLS
+            return Optional.of(Long.parseLong(statistics.get("followers"))); //NON-NLS
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 

@@ -1,7 +1,13 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
+import lombok.*;
+
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class BufferUpdateResponseRepresentation {
 
     public boolean success;

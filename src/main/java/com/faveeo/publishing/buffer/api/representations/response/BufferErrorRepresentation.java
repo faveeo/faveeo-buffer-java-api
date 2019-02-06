@@ -1,7 +1,16 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.List;
 
+@ToString
+@EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class BufferErrorRepresentation {
 
     public int code;
@@ -9,7 +18,7 @@ public class BufferErrorRepresentation {
     public String message;
     public boolean success;
 
-    public class ProfileId {
+    public static class ProfileId {
         public String profiled_id;
     }
 }

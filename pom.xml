@@ -16,15 +16,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <lib.okhttp3>3.12.0</lib.okhttp3>
-        <lib.retrofit>2.5.0</lib.retrofit>
         <build.number>SNAPSHOT</build.number>
         <build.branch>local</build.branch>
 
         <java.version>1.8</java.version>
         <aws-java-sdk.version>1.11.280</aws-java-sdk.version>
         <lib.springboot>2.0.5.RELEASE</lib.springboot>
-
+        <lib.okhttp3>3.12.0</lib.okhttp3>
+        <lib.retrofit>2.5.0</lib.retrofit>
         <lib.guava>27.0.1-jre</lib.guava>
         <lombok.version>1.18.4</lombok.version>
         <lib.commons-lang3>3.8.1</lib.commons-lang3>
@@ -36,12 +35,17 @@
 
         <lib.spring>5.0.9.RELEASE</lib.spring>
         <lib.slf4j>1.7.25</lib.slf4j>
-        <lib.jackson.version>2.9.6</lib.jackson.version>
+        <lib.jackson.version>2.9.7</lib.jackson.version>
         <lib.logback>1.2.3</lib.logback>
         <lib.snakeyaml>1.19</lib.snakeyaml>
         <lib.springfox>2.9.2</lib.springfox>
         <lib.validation>2.0.1.Final</lib.validation>
         <lib.lombok>1.18.2</lib.lombok>
+        <lib.jodatime>2.10.1</lib.jodatime>
+        <lib.commonslang3>3.8.1</lib.commonslang3>
+        <lib.hc>4.5.6</lib.hc>
+        <lib.micrometer>1.1.0</lib.micrometer>
+        <lib.gson>2.8.0</lib.gson>
     </properties>
 
     <dependencies>
@@ -51,15 +55,16 @@
             <version>${lib.lombok}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.1</version>
+            <version>${lib.jodatime}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${lib.commonslang3}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -76,12 +81,12 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.6</version>
+            <version>${lib.hc}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>fluent-hc</artifactId>
-            <version>4.5.6</version>
+            <version>${lib.hc}</version>
         </dependency>
 
         <dependency>
@@ -145,6 +150,12 @@
             <version>${lib.jackson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>${lib.jackson.version}</version>
+        </dependency>
+
 
         <!-- TESTING -->
         <dependency>
@@ -182,6 +193,16 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
             <version>${lib.retrofit}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <version>${lib.micrometer}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${lib.gson}</version>
         </dependency>
     </dependencies>
 

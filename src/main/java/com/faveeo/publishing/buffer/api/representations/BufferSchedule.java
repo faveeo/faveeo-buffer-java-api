@@ -1,14 +1,19 @@
 package com.faveeo.publishing.buffer.api.representations;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class BufferSchedule {
 
-    public final List<String> days;
-    public final List<String> times;
+    public List<String> days;
+    public List<String> times;
 
-    public BufferSchedule(List<String> days, List<String> times) {
-        this.days = days;
-        this.times = times;
-    }
 }

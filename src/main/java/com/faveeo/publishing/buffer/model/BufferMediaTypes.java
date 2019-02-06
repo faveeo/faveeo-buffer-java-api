@@ -5,9 +5,7 @@ package com.faveeo.publishing.buffer.model;
  */
 public enum BufferMediaTypes {
     link,
-    originalLink,
     description,
     title,
-    video,
     picture
 }
