@@ -12,17 +12,17 @@ import java.util.Map;
 @AllArgsConstructor
 public class BufferMediaItemRepresentation {
 
-    public final String access_token;
-    public final String link;
-    public final String description;
-    public final String title;
-    public final String picture;
-    public final String photo;
-    public final String thumbnail;
+    public  String access_token;
+    public  String link;
+    public  String description;
+    public  String title;
+    public  String picture;
+    public  String photo;
+    public  String thumbnail;
 
 
     public Map<String, String> toMap() {
-        final Map<String, String> map = new LinkedHashMap<>(8);
+         Map<String, String> map = new LinkedHashMap<>(8);
         addingJsonKeyValue(map, "media[link]", link); //NON-NLS
         addingJsonKeyValue(map, "media[description]", description); //NON-NLS
         addingJsonKeyValue(map, "media[title]", title); //NON-NLS
@@ -32,8 +32,8 @@ public class BufferMediaItemRepresentation {
         return map;
     }
 
-    private static void addingJsonKeyValue(final Map<? super String, ? super String> jsonKeyValue, final String key,
-                                           final String value) {
+    private static void addingJsonKeyValue( Map<? super String, ? super String> jsonKeyValue,  String key,
+                                            String value) {
         if (value != null) {
             jsonKeyValue.put(key, value);
         }
