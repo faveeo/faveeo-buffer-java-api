@@ -22,7 +22,7 @@ public class BufferRetrofitClientFactory {
     private long connectTimeout = 10L;
     @SuppressWarnings("MagicNumber")
     private long callTimeout = 10L;
-    private String bufferApiUrl = "https://api.bufferapp.com/1"; //NON-NLS
+    private String bufferApiUrl = "https://api.bufferapp.com/1/"; //NON-NLS
 
     public BufferRetrofitClientFactory() { }
 
