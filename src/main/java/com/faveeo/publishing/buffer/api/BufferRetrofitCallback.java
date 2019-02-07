@@ -39,10 +39,14 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             final Request request = call.request();
             final HttpUrl url = request.url();
             final URI uri = url.uri();
-            log.debug(BufferGatewayImpl.resourceBundle.getString("buffer.rest.call.with.success.response"), uri, response);
+            log.debug(BufferGatewayImpl.resourceBundle.getString("buffer.rest.call.with.success.response"), uri, response.code(), response);
         }
-        start.stop(okMeter);
-        callback.onResponse(call, response);
+        if (response.isSuccessful()) {
+            start.stop(okMeter);
+            callback.onResponse(call, response);
+        } else {
+            onFailure(call, null);
+        }
     }
 
     @Override
@@ -62,11 +66,13 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
                     execute.code(),
                     bufferErrorRepresentation.code, bufferErrorRepresentation.message, exception);
             }
-            start.stop(errorMeter);
+
         } catch (IOException e) {
             log.error("Cannot obtain the error response {}", e.getMessage(), e);
+        } finally {
+            start.stop(errorMeter);
+            callback.onFailure(bufferErrorRepresentation, exception);
         }
-        callback.onFailure(bufferErrorRepresentation, exception);
     }
 
     private BufferErrorRepresentation parsingErrorRepresentation(final Reader charStream)  {
