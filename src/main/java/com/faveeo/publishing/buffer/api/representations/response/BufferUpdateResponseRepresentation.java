@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class BufferUpdateResponseRepresentation {
     public String message;
+    public String code;
     public boolean success;
     public long buffer_count;
     public float buffer_percentage;
