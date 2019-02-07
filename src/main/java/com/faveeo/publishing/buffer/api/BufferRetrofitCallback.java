@@ -7,6 +7,7 @@ import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,16 +46,20 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             start.stop(okMeter);
             callback.onResponse(call, response);
         } else {
-            onError(call, null);
+            onError(call, response);
         }
     }
 
     public void onError(final Call<BufferUpdateResponseRepresentation> call,
                         final Response<BufferUpdateResponseRepresentation> response) {
         BufferErrorRepresentation bufferErrorRepresentation = null;
-        final Reader charStream = response.errorBody().charStream();
-        bufferErrorRepresentation = parsingErrorRepresentation(charStream);
+
         try {
+            final ResponseBody responseBody = response.errorBody();
+            if (responseBody != null) {
+                bufferErrorRepresentation = parsingErrorRepresentation(responseBody.charStream());
+            }
+
             if (bufferErrorRepresentation == null) {
                 log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
                         response.code());
