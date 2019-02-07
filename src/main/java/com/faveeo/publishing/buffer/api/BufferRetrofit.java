@@ -13,7 +13,7 @@ import java.util.Map;
 @SuppressWarnings({"HardCodedStringLiteral", "DuplicateStringLiteralInspection"})
 public interface BufferRetrofit {
 
-    @POST("/updates/create.json")
+    @POST("updates/create.json")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     Call<BufferUpdateResponseRepresentation> createUpdate(@Field("profile_ids") List<String> profile_ids,
@@ -26,7 +26,7 @@ public interface BufferRetrofit {
                                                           @Field("scheduled_at") DateTime scheduled_at,
                                                           @Field("access_token") String access_token);
 
-    @POST("/updates/create.json")
+    @POST("updates/create.json")
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")
     Call<BufferUpdateResponseRepresentation> createUpdateAsRetweet(@Field("profile_ids") List<String> profile_ids,
@@ -37,10 +37,10 @@ public interface BufferRetrofit {
                                                              @Field("retweet[comment]") String comment,
                                                              @Field("access_token") String access_token);
 
-    @GET("/profiles.json")
+    @GET("profiles.json")
     Call<List<BufferProfileRepresentation>> getBufferUserProfiles(@Query("access_token") String accessToken);
 
-    @GET("/profiles/{id}/updates/sent.json")
+    @GET("profiles/{id}/updates/sent.json")
     Call<BufferUpdatesRepresentation> getSentUpdates(@Path("id") String profileId,
                                                @Query("access_token") String accessToken,
                                                @Query("page") int page,
@@ -49,11 +49,11 @@ public interface BufferRetrofit {
                                                @Query("utc") boolean utc,
                                                @Query("filter") String filter);
 
-    @GET("/profiles/{id}.json")
+    @GET("profiles/{id}.json")
     Call<BufferProfileRepresentation> getProfile(@Path("id") String profileId,
                                            @Query("access_token") String accessToken);
 
-    @POST("/profiles/{id}/updates/shuffle.json")
+    @POST("profiles/{id}/updates/shuffle.json")
     Call<BufferUpdateResponseRepresentation> shuffleQueue(@Path("id") String profileId,
                                                     @Query("access_token") String accessToken);
 

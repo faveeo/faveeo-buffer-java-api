@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Data
-public class BufferRetrofitClientFactory {
+    public class BufferRetrofitClientFactory {
 
     @SuppressWarnings("MagicNumber")
     private long readTimeout = 10L;
