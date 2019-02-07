@@ -34,11 +34,11 @@ public interface BufferGateway {
      * Creates a buffer update as a retweet from a previous tweet.
      *
      * @param bufferCreateUpdateRepresentation the data required to publish the update
-     * @param callback
+     * @param callback                         the callback
      */
     void createUpdateAsRetweet(
-        final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
-        final BufferCallback<BufferUpdateResponseRepresentation> callback);
+            final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
+            final BufferCallback<BufferUpdateResponseRepresentation> callback);
 
     /**
      * Returns the list of buffer user profiles for a given Buffer access token

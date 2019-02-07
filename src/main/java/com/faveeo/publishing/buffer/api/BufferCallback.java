@@ -11,7 +11,12 @@ import retrofit2.Response;
  */
 public interface BufferCallback<T> {
 
-    public default void onResponse(final Call<T> call, final Response<T> response) { }
+    public default void onResponse(final Call<T> call, final Response<T> response) {
+    }
 
-    public default void onFailure(final BufferErrorRepresentation bufferErrorRepresentation, final Throwable t) { }
+    public default void onFailure(final Call<T> call, final Throwable t) {
+    }
+
+    public default void onError(BufferErrorRepresentation bufferErrorRepresentation, Response<T> response) {
+    }
 }

@@ -45,38 +45,29 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             start.stop(okMeter);
             callback.onResponse(call, response);
         } else {
-            onFailure(call, null);
+            onError(call, null);
         }
     }
 
-    @Override
-    public final void onFailure(final Call<BufferUpdateResponseRepresentation> call, final Throwable exception) {
-        Response<BufferUpdateResponseRepresentation> execute = null;
+    public void onError(final Call<BufferUpdateResponseRepresentation> call,
+                        final Response<BufferUpdateResponseRepresentation> response) {
         BufferErrorRepresentation bufferErrorRepresentation = null;
+        final Reader charStream = response.errorBody().charStream();
+        bufferErrorRepresentation = parsingErrorRepresentation(charStream);
         try {
-            execute = call.execute();
-            final Reader charStream = execute.errorBody().charStream();
-            bufferErrorRepresentation = parsingErrorRepresentation(charStream);
-
-        } catch (final IOException e) {
-            log.error("Cannot obtain the error response {}", e.getMessage(), e);
-        }
-        try {
-            if (execute == null) {
+            if (bufferErrorRepresentation == null) {
                 log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
-                        -1, exception);
-            } else if (bufferErrorRepresentation == null) {
-                log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
-                        execute.code(), exception);
+                        response.code());
             } else {
                 log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error.buffer.error"),
-                        execute.code(),
-                        bufferErrorRepresentation.code, bufferErrorRepresentation.message, exception);
+                        response.code(),
+                        bufferErrorRepresentation.code, bufferErrorRepresentation.message);
             }
         } finally {
             start.stop(errorMeter);
-            callback.onFailure(bufferErrorRepresentation, exception);
+            callback.onError(bufferErrorRepresentation, response);
         }
+
     }
 
     private BufferErrorRepresentation parsingErrorRepresentation(final Reader charStream) {
@@ -89,4 +80,12 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
         }
         return bufferErrorRepresentation;
     }
+
+    @Override
+    public final void onFailure(final Call<BufferUpdateResponseRepresentation> call, final Throwable exception) {
+        log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"), -1, exception);
+        start.stop(errorMeter);
+        callback.onFailure(null, exception);
+    }
 }
+
