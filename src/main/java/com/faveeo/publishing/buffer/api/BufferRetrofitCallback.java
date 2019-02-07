@@ -51,35 +51,39 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
 
     @Override
     public final void onFailure(final Call<BufferUpdateResponseRepresentation> call, final Throwable exception) {
-        final Response<BufferUpdateResponseRepresentation> execute;
+        Response<BufferUpdateResponseRepresentation> execute = null;
         BufferErrorRepresentation bufferErrorRepresentation = null;
         try {
             execute = call.execute();
             final Reader charStream = execute.errorBody().charStream();
             bufferErrorRepresentation = parsingErrorRepresentation(charStream);
 
-            if (bufferErrorRepresentation == null) {
+        } catch (final IOException e) {
+            log.error("Cannot obtain the error response {}", e.getMessage(), e);
+        }
+        try {
+            if (execute == null) {
                 log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
-                    execute.code(), exception);
+                        -1, exception);
+            } else if (bufferErrorRepresentation == null) {
+                log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"),
+                        execute.code(), exception);
             } else {
                 log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error.buffer.error"),
-                    execute.code(),
-                    bufferErrorRepresentation.code, bufferErrorRepresentation.message, exception);
+                        execute.code(),
+                        bufferErrorRepresentation.code, bufferErrorRepresentation.message, exception);
             }
-
-        } catch (IOException e) {
-            log.error("Cannot obtain the error response {}", e.getMessage(), e);
         } finally {
             start.stop(errorMeter);
             callback.onFailure(bufferErrorRepresentation, exception);
         }
     }
 
-    private BufferErrorRepresentation parsingErrorRepresentation(final Reader charStream)  {
+    private BufferErrorRepresentation parsingErrorRepresentation(final Reader charStream) {
         BufferErrorRepresentation bufferErrorRepresentation = null;
         try {
             bufferErrorRepresentation = BufferJacksonConfigFactory.getObjectMapper().readValue(charStream,
-                BufferErrorRepresentation.class);
+                    BufferErrorRepresentation.class);
         } catch (final IOException e) {
             log.error(BufferGatewayImpl.resourceBundle.getString("could.not.parse.the.buffer.error.representation"), e);
         }
