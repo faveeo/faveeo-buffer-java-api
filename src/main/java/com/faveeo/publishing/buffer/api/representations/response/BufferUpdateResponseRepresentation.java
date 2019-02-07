@@ -8,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class BufferUpdateResponseRepresentation {
 
     public boolean success;
