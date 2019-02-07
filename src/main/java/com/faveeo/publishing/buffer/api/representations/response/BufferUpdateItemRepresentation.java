@@ -20,7 +20,7 @@ public class BufferUpdateItemRepresentation {
     public String day;
     public long due_at;
     public String due_time;
-    public List<BufferMediaItemRepresentation> media;
+    public BufferMediaItemRepresentation media;
     public String profile_id;
     public String profile_service;
     public String status;
