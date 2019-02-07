@@ -2,12 +2,18 @@ package com.faveeo.publishing.buffer.api.representations.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.faveeo.publishing.buffer.api.representations.BufferSchedule;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BufferProfileRepresentation {
 
     public String avatar;

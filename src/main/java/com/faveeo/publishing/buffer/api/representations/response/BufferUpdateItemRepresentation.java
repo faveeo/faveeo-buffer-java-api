@@ -1,14 +1,12 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
 import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresentation;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class BufferUpdateItemRepresentation {
 

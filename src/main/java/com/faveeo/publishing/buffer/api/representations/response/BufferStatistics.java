@@ -1,12 +1,12 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Builder
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class BufferStatistics {
     public int reach;
     public int clicks;
