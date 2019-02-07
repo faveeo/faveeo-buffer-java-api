@@ -19,7 +19,7 @@ public class BufferErrorRepresentation {
     public boolean success;
     public String error;
 
-    
+
     public static class ProfileId {
         public String profile_id;
     }
