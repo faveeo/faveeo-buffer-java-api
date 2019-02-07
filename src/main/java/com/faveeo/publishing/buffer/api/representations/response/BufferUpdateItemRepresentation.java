@@ -1,6 +1,7 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresentation;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferUpdateItemRepresentation {
-    public String _id;
+    @JsonProperty("_id")
     public String id;
     public long created_at;
     public String day;

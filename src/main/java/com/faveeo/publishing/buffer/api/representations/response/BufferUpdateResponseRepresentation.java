@@ -10,7 +10,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class BufferUpdateResponseRepresentation {
-
+    public String message;
     public boolean success;
     public long buffer_count;
     public float buffer_percentage;
