@@ -9,8 +9,8 @@ import lombok.*;
 @EqualsAndHashCode
 public class BufferRetweetRepresentation {
 
-    public final String tweet_id;
-    public final String comment;
+    public String tweet_id;
+    public String comment;
 
 
 }
