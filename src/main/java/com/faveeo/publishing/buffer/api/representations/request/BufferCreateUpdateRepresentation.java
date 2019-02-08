@@ -5,7 +5,6 @@ import com.faveeo.publishing.buffer.api.representations.BufferRetweetRepresentat
 import lombok.*;
 import org.joda.time.DateTime;
 
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor

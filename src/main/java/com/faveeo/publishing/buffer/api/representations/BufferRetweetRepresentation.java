@@ -1,12 +1,10 @@
 package com.faveeo.publishing.buffer.api.representations;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class BufferRetweetRepresentation {
