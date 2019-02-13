@@ -1,5 +1,6 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.faveeo.publishing.buffer.api.representations.BufferSchedule;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferProfileRepresentation {
 
     public String avatar;
