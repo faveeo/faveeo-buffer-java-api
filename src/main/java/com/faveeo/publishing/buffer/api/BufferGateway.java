@@ -1,5 +1,7 @@
 package com.faveeo.publishing.buffer.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faveeo.publishing.buffer.api.representations.request.BufferCreateUpdateRepresentation;
 import com.faveeo.publishing.buffer.api.representations.response.BufferProfileRepresentation;
@@ -20,6 +22,15 @@ public interface BufferGateway {
      * @return the internal object mapper.
      */
     ObjectMapper internalObjectMapper();
+
+    /**
+     * Creates a new buffer update (sending a publication)
+     *
+     * @param bufferPayload the buffer payload
+     * @param callback      the callback to be executed after the REST Call.
+     */
+    void createUpdateFromPayload(final JsonNode bufferPayload,
+                      final BufferCallback<BufferUpdateResponseRepresentation> callback) throws JsonProcessingException;
 
     /**
      * Creates a new buffer update (sending a publication)

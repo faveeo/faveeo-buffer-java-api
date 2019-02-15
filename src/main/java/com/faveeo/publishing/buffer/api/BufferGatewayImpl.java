@@ -1,5 +1,7 @@
 package com.faveeo.publishing.buffer.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faveeo.publishing.buffer.api.representations.request.BufferCreateUpdateRepresentation;
 import com.faveeo.publishing.buffer.api.representations.response.BufferProfileRepresentation;
@@ -13,8 +15,10 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public final class BufferGatewayImpl implements BufferGateway {
 
@@ -28,11 +32,19 @@ public final class BufferGatewayImpl implements BufferGateway {
 
     /**
      * Returns the internal object mapper.
+     *
      * @return the internal object mapper.
      */
     @Override
     public ObjectMapper internalObjectMapper() {
         return BufferJacksonConfigFactory.getObjectMapper();
+    }
+
+    @Override
+    public void createUpdateFromPayload(final JsonNode bufferPayload, final BufferCallback<BufferUpdateResponseRepresentation> callback) throws JsonProcessingException {
+        final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation = internalObjectMapper().treeToValue(bufferPayload,
+                BufferCreateUpdateRepresentation.class);
+        createUpdate(bufferCreateUpdateRepresentation, callback);
     }
 
     /**
