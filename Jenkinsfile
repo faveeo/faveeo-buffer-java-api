@@ -26,7 +26,7 @@ pipeline {
         stage('Compile and unit tests') {
             steps {
             	catchError {                    
-                	sh 'mvn -U -Psonar clean test install sonar:sonar'
+                	sh 'mvn -U -Psonarlocal clean test install sonar:sonar'
 				}
             }
         }
