@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public final class BufferGatewayImpl implements BufferGateway {
+public class BufferGatewayImpl implements BufferGateway {
 
     public static final ResourceBundle resourceBundle = ResourceBundle.getBundle("api");
     private static final Logger logger = LoggerFactory.getLogger(BufferGatewayImpl.class);
