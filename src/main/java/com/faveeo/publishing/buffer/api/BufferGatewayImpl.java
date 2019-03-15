@@ -102,13 +102,13 @@ public class BufferGatewayImpl implements BufferGateway {
     public BufferUpdatesRepresentation getSentUpdates(final String profileId, final String accessToken,
                                                       final int page, final int count,
                                                       final DateTime timestamp) throws IOException {
-        return bufferClient.getSentUpdates(profileId, accessToken, page, count, timestamp.getMillis(), true, null).execute().body();
+        return bufferClient.getSentUpdates(profileId, accessToken, page, count, timestamp == null ? null : timestamp.getMillis(), true, null).execute().body();
     }
 
     @Override
     public BufferUpdatesRepresentation getPendingUpdates(final String profileId, final String accessToken, final int page, final int count,
                                                          final DateTime timestamp) throws IOException {
-        return bufferClient.getPendingUpdates(profileId, accessToken, page, count, timestamp.getMillis(), true).execute().body();
+        return bufferClient.getPendingUpdates(profileId, accessToken, page, count, timestamp == null ? null : timestamp.getMillis(), true).execute().body();
     }
 
     @Override
