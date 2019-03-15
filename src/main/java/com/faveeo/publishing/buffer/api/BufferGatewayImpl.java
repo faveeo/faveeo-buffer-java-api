@@ -106,6 +106,12 @@ public class BufferGatewayImpl implements BufferGateway {
     }
 
     @Override
+    public BufferUpdatesRepresentation getPendingUpdates(final String profileId, final String accessToken, final int page, final int count,
+                                                         final DateTime timestamp) throws IOException {
+        return bufferClient.getPendingUpdates(profileId, accessToken, page, count, timestamp.getMillis(), true).execute().body();
+    }
+
+    @Override
     public BufferProfileRepresentation getProfile(final String profileId, final String accessToken) throws IOException {
         return bufferClient.getProfile(profileId, accessToken).execute().body();
     }

@@ -57,4 +57,12 @@ public interface BufferRetrofit {
     Call<BufferUpdateResponseRepresentation> shuffleQueue(@Path("id") String profileId,
                                                     @Query("access_token") String accessToken);
 
+
+    @GET("profiles/{id}/updates/pending.json")
+    Call<BufferUpdatesRepresentation> getPendingUpdates(@Path("id") String profileId,
+                                                        @Query("access_token") String accessToken,
+                                                        @Query("page") int page,
+                                                        @Query("count") int count,
+                                                        @Query("since") Long timestamp,
+                                                        @Query("utc") boolean utc);
 }

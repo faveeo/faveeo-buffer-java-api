@@ -79,6 +79,24 @@ public interface BufferGateway {
 
 
     /**
+     * Collects the list of updates that has been sent given a date.
+     *
+     * @param profileId   the buffer profile ID
+     * @param accessToken the buffer access token
+     * @param page        the page number
+     * @param count       the number of updates expected
+     * @param timestamp   the timestamps
+     * @return the list of sent buffer updates.
+     * @throws IOException
+     */
+    BufferUpdatesRepresentation getPendingUpdates(final String profileId,
+                                               final String accessToken,
+                                               final int page,
+                                               final int count,
+                                               final DateTime timestamp) throws IOException;
+
+
+    /**
      * Returns the Buffer profile information for a given profile ID and its access token
      *
      * @param profileId   the buffer profile ID
