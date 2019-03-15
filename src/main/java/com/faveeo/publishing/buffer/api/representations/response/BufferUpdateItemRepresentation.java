@@ -44,6 +44,6 @@ public class BufferUpdateItemRepresentation {
     }
 
     public DateTime toDateTime() {
-        return new DateTime(due_at);
+        return new DateTime(due_at*1000L);
     }
 }
