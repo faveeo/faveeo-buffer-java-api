@@ -26,7 +26,12 @@ pipeline {
             steps {
                 
                 catchError {                    
-                    sh ' mvn -Psonar-coverage,sonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false sonar:sonar'
+                    sh ' mvn -Psonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false sonar:sonar'
+                }
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
                 }
             }
         }
@@ -40,9 +45,7 @@ pipeline {
         }        
     }
     post {
-        always {
-            junit '**/target/surefire-reports/*.xml'
-        }
+
         failure {
 		 	slackSend color: 'danger', message: "FAILED BUILD <${env.RUN_DISPLAY_URL}|${env.JOB_NAME}${env.BUILD_DISPLAY_NAME}>"
         }
