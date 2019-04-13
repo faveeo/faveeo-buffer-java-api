@@ -26,7 +26,14 @@ pipeline {
         stage('Compile and unit tests') {
             steps {
             	catchError {                    
-                	sh 'mvn -U -Psonarlocal clean  org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false  install sonar:sonar'
+                	sh 'mvn -U clean install'
+				}
+            }
+        }
+        stage('Sonar') {
+            steps {
+            	catchError {                    
+                	sh ' mvn -Psonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent package -Dmaven.test.failure.ignore=true sonar:sonar'
 				}
             }
         }
