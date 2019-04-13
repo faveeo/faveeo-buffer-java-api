@@ -26,7 +26,7 @@ pipeline {
             steps {
                 
                 catchError {                    
-                    sh ' mvn -Psonar-coverage,sonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true sonar:sonar'
+                    sh ' mvn -Psonar-coverage,sonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=false sonar:sonar'
                 }
             }
         }
