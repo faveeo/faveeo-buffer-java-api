@@ -22,21 +22,22 @@ pipeline {
         BUILD_FILENAME = "pipeline-${env.BRANCH_NAME}-${env.BUILD_ID}-${env.BUILD_TIMESTAMP}"
     }
     stages {
+        stage('Quality check') {
+            steps {
+                
+                catchError {                    
+                    sh ' mvn -Psonar-coverage,sonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true sonar:sonar'
+                }
+            }
+        }
 
         stage('Compile and unit tests') {
             steps {
             	catchError {                    
-                	sh 'mvn -U clean install'
+                	sh 'mvn -U -Dmaven.test.skip=true clean install'
 				}
             }
-        }
-        stage('Sonar') {
-            steps {
-            	catchError {                    
-                	sh ' mvn -Psonarlocal clean org.jacoco:jacoco-maven-plugin:prepare-agent package -Dmaven.test.failure.ignore=true sonar:sonar'
-				}
-            }
-        }
+        }        
     }
     post {
         always {
