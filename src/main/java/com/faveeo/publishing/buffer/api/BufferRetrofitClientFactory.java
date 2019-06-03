@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Data
-    public class BufferRetrofitClientFactory {
+public class BufferRetrofitClientFactory {
 
     @SuppressWarnings("MagicNumber")
     private long readTimeout = 10L;
@@ -24,7 +24,12 @@ import java.util.concurrent.TimeUnit;
     private long callTimeout = 10L;
     private String bufferApiUrl = "https://api.bufferapp.com/1/"; //NON-NLS
 
-    public BufferRetrofitClientFactory() { }
+    public BufferRetrofitClientFactory(final String bufferApiUrl) {
+        this.bufferApiUrl = bufferApiUrl;
+    }
+
+    public BufferRetrofitClientFactory() {
+    }
 
     /**
      * Returns a new Buffer API Client using Retrofit.
@@ -53,6 +58,7 @@ import java.util.concurrent.TimeUnit;
 
     /**
      * This class initializes the logging interceptor.
+     *
      * @return the logging interceptor.
      */
     private static HttpLoggingInterceptor initLoggingInterceptor() {
