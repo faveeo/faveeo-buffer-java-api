@@ -1,19 +1,23 @@
 package com.faveeo.publishing.buffer.api.representations;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.ToString;
 
 import java.util.List;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-@EqualsAndHashCode
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferSchedule {
 
-    public List<String> days;
-    public List<String> times;
+    public final List<String> days;
+    public final List<String> times;
 
+    /**
+     * Instantiates a new Buffer schedule.
+     *
+     * @param days  the days
+     * @param times the times
+     */
+    public BufferSchedule(List<String> days, List<String> times) {
+        this.days = days;
+        this.times = times;
+    }
 }

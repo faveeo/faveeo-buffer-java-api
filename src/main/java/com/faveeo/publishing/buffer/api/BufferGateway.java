@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This interface is the main entry to operate with the buffer API.
@@ -27,29 +28,23 @@ public interface BufferGateway {
      * Creates a new buffer update (sending a publication)
      *
      * @param bufferPayload the buffer payload
-     * @param callback      the callback to be executed after the REST Call.
      */
-    void createUpdateFromPayload(final JsonNode bufferPayload,
-                      final BufferCallback<BufferUpdateResponseRepresentation> callback) throws JsonProcessingException;
+    Optional<BufferUpdateResponseRepresentation>  createUpdateFromPayload(final JsonNode bufferPayload) throws JsonProcessingException;
+
 
     /**
      * Creates a new buffer update (sending a publication)
      *
      * @param bufferCreateUpdateRepresentation the buffer create update representation
-     * @param callback                         the callback to be executed after the REST Call.
      */
-    void createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
-                      final BufferCallback<BufferUpdateResponseRepresentation> callback);
+    Optional<BufferUpdateResponseRepresentation> createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation) throws IOException;
 
     /**
      * Creates a buffer update as a retweet from a previous tweet.
      *
      * @param bufferCreateUpdateRepresentation the data required to publish the update
-     * @param callback                         the callback
      */
-    void createUpdateAsRetweet(
-            final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
-            final BufferCallback<BufferUpdateResponseRepresentation> callback);
+    Optional<BufferUpdateResponseRepresentation> createUpdateAsRetweet(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation);
 
     /**
      * Returns the list of buffer user profiles for a given Buffer access token
@@ -90,10 +85,10 @@ public interface BufferGateway {
      * @throws IOException
      */
     BufferUpdatesRepresentation getPendingUpdates(final String profileId,
-                                               final String accessToken,
-                                               final int page,
-                                               final int count,
-                                               final DateTime timestamp) throws IOException;
+                                                  final String accessToken,
+                                                  final int page,
+                                                  final int count,
+                                                  final DateTime timestamp) throws IOException;
 
 
     /**

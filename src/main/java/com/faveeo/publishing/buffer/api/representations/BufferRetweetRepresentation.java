@@ -1,18 +1,23 @@
 package com.faveeo.publishing.buffer.api.representations;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferRetweetRepresentation {
 
-    public String tweet_id;
-    public String comment;
+    public final String tweet_id;
+    public final String comment;
 
-
+    /**
+     * Instantiates a new Buffer retweet representation.
+     *
+     * @param tweet_id the tweet id
+     * @param comment  the comment
+     */
+    public BufferRetweetRepresentation(String tweet_id, String comment) {
+        this.tweet_id = tweet_id;
+        this.comment = comment;
+    }
 }

@@ -15,10 +15,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BufferGatewayImpl implements BufferGateway {
 
@@ -40,30 +37,26 @@ public class BufferGatewayImpl implements BufferGateway {
         return BufferJacksonConfigFactory.getObjectMapper();
     }
 
-    @Override
-    public void createUpdateFromPayload(final JsonNode bufferPayload, final BufferCallback<BufferUpdateResponseRepresentation> callback) throws JsonProcessingException {
+    public Optional<BufferUpdateResponseRepresentation> createUpdateFromPayload(final JsonNode bufferPayload) throws JsonProcessingException {
         final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation = internalObjectMapper().treeToValue(bufferPayload,
                 BufferCreateUpdateRepresentation.class);
-        createUpdate(bufferCreateUpdateRepresentation, callback);
+        return createUpdate(bufferCreateUpdateRepresentation);
     }
 
     /**
      * Creates a new buffer update (sending a publication)
      *
      * @param bufferCreateUpdateRepresentation the buffer create update representation
-     * @param callback                         the callback to be executed after the REST Call.
+     * @return the optional
      */
     @Override
-    public void createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
-                             final BufferCallback<BufferUpdateResponseRepresentation> callback) {
-        Validate.notNull(callback);
+    public Optional<BufferUpdateResponseRepresentation> createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation) {
         Validate.notNull(bufferCreateUpdateRepresentation);
 
         final Map<String, String> mediaMap = bufferCreateUpdateRepresentation.media == null ? Collections.emptyMap()
                 : bufferCreateUpdateRepresentation.media.toMap();
-        Response<BufferUpdateResponseRepresentation> execute = null;
-        logger.info(resourceBundle.getString("pushing.buffer.update.text"), bufferCreateUpdateRepresentation.text);
-        final Call<BufferUpdateResponseRepresentation> update = bufferClient.createUpdate(
+        final BufferRetrofitCallback bufferRetrofitCallback = new BufferRetrofitCallback();
+        final Call<BufferUpdateResponseRepresentation> call = bufferClient.createUpdate(
                 bufferCreateUpdateRepresentation.profile_ids,
                 bufferCreateUpdateRepresentation.text,
                 bufferCreateUpdateRepresentation.shorten,
@@ -73,16 +66,27 @@ public class BufferGatewayImpl implements BufferGateway {
                 bufferCreateUpdateRepresentation.attachment,
                 bufferCreateUpdateRepresentation.scheduled_at,
                 bufferCreateUpdateRepresentation.access_token);
-        update.enqueue(new BufferRetrofitCallback(callback));
+        try {
+            logger.info(resourceBundle.getString("pushing.buffer.call.text"), bufferCreateUpdateRepresentation.text);
+            final Response<BufferUpdateResponseRepresentation> execution = call.execute();
 
+            bufferRetrofitCallback.onResponse(call, execution);
+
+            return Optional.ofNullable(execution.body());
+        } catch (final Exception e) {
+            logger.error("Call to Buffer has failed", e);
+            bufferRetrofitCallback.onFailure(call, e);
+        }
+        return Optional.empty();
     }
 
     @Override
-    public void createUpdateAsRetweet(
-            final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation,
-            final BufferCallback<BufferUpdateResponseRepresentation> callback) {
+    public Optional<BufferUpdateResponseRepresentation> createUpdateAsRetweet(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation) {
+        Validate.notNull(bufferCreateUpdateRepresentation);
 
-        final Call<BufferUpdateResponseRepresentation> update = bufferClient.createUpdateAsRetweet(
+        final BufferRetrofitCallback bufferRetrofitCallback = new BufferRetrofitCallback();
+
+        final Call<BufferUpdateResponseRepresentation> call = bufferClient.createUpdateAsRetweet(
                 bufferCreateUpdateRepresentation.profile_ids,
                 bufferCreateUpdateRepresentation.now,
                 bufferCreateUpdateRepresentation.top,
@@ -90,7 +94,17 @@ public class BufferGatewayImpl implements BufferGateway {
                 bufferCreateUpdateRepresentation.retweet.tweet_id,
                 bufferCreateUpdateRepresentation.retweet.comment,
                 bufferCreateUpdateRepresentation.access_token);
-        update.enqueue(new BufferRetrofitCallback(callback));
+        try {
+            logger.info(resourceBundle.getString("pushing.buffer.call.text"), bufferCreateUpdateRepresentation.text);
+            final Response<BufferUpdateResponseRepresentation> execution = call.execute();
+
+            bufferRetrofitCallback.onResponse(call, execution);
+            return Optional.ofNullable(execution.body());
+        } catch (final Exception e) {
+            logger.error("Call to Buffer has failed", e);
+            bufferRetrofitCallback.onFailure(call, e);
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -108,7 +122,7 @@ public class BufferGatewayImpl implements BufferGateway {
     @Override
     public BufferUpdatesRepresentation getPendingUpdates(final String profileId, final String accessToken, final int page, final int count,
                                                          final DateTime timestamp) throws IOException {
-        return bufferClient.getPendingUpdates(profileId, accessToken, page, count, timestamp == null ? null : (long)timestamp.getMillisOfSecond(), true).execute().body();
+        return bufferClient.getPendingUpdates(profileId, accessToken, page, count, timestamp == null ? null : (long) timestamp.getMillisOfSecond(), true).execute().body();
     }
 
     @Override

@@ -1,14 +1,10 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Builder
 @EqualsAndHashCode
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferStatistics {
     public int reach;
     public int clicks;

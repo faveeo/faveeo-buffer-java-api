@@ -9,33 +9,37 @@ import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URI;
+import java.util.Optional;
 
 @Slf4j
-public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepresentation> {
+public class BufferRetrofitCallback {
 
     private static final String METER_NAME_BUFFER_UPDATES_OK = "publishing.buffer.updates.ok"; //NON-NLS
     private static final String METER_NAME_BUFFER_UPDATES_ERROR = "publishing.buffer.updates.error"; //NON-NLS
     private final Timer.Sample start;
-    private final BufferCallback<BufferUpdateResponseRepresentation> callback;
     private final Timer okMeter;
     private final Timer errorMeter;
 
-    public BufferRetrofitCallback(final BufferCallback<BufferUpdateResponseRepresentation> bufferCallback) {
-        this.callback = bufferCallback;
+    public BufferRetrofitCallback() {
         this.okMeter = Metrics.timer(METER_NAME_BUFFER_UPDATES_OK);
         this.errorMeter = Metrics.timer(METER_NAME_BUFFER_UPDATES_ERROR);
         start = Timer.start();
     }
 
-    @Override
-    public final void onResponse(final Call<BufferUpdateResponseRepresentation> call,
-                                 final Response<BufferUpdateResponseRepresentation> response) {
+    /**
+     * On response optional.
+     *
+     * @param call     the call
+     * @param response the response
+     * @return the optional
+     */
+    public final Optional<BufferUpdateResponseRepresentation> onResponse(final Call<BufferUpdateResponseRepresentation> call,
+                                                                         final Response<BufferUpdateResponseRepresentation> response) {
         if (log.isDebugEnabled()) {
             final Request request = call.request();
             final HttpUrl url = request.url();
@@ -44,14 +48,14 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
         }
         if (response.isSuccessful()) {
             start.stop(okMeter);
-            callback.onResponse(call, response);
+            return Optional.ofNullable(response.body());
         } else {
             onError(call, response);
         }
+        return Optional.empty();
     }
 
-    public void onError(final Call<BufferUpdateResponseRepresentation> call,
-                        final Response<BufferUpdateResponseRepresentation> response) {
+    public void onError(final Call<BufferUpdateResponseRepresentation> call, final Response<BufferUpdateResponseRepresentation> response) {
         BufferErrorRepresentation bufferErrorRepresentation = null;
 
         try {
@@ -70,7 +74,6 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
             }
         } finally {
             start.stop(errorMeter);
-            callback.onError(bufferErrorRepresentation, response);
         }
 
     }
@@ -86,11 +89,10 @@ public class BufferRetrofitCallback implements Callback<BufferUpdateResponseRepr
         return bufferErrorRepresentation;
     }
 
-    @Override
     public final void onFailure(final Call<BufferUpdateResponseRepresentation> call, final Throwable exception) {
         log.error(BufferGatewayImpl.resourceBundle.getString("error.creating.buffer.update.http.error"), -1, exception);
         start.stop(errorMeter);
-        callback.onFailure(null, exception);
+
     }
 }
 

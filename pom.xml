@@ -313,4 +313,14 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-sleroy-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/sleroy/maven</url>
+        </repository>
+    </repositories>
 </project>
