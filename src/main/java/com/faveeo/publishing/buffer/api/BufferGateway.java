@@ -29,7 +29,7 @@ public interface BufferGateway {
      *
      * @param bufferPayload the buffer payload
      */
-    Optional<BufferUpdateResponseRepresentation>  createUpdateFromPayload(final JsonNode bufferPayload) throws JsonProcessingException;
+    Optional<BufferUpdateResponseRepresentation> createUpdateFromPayload(final JsonNode bufferPayload);
 
 
     /**
@@ -37,7 +37,7 @@ public interface BufferGateway {
      *
      * @param bufferCreateUpdateRepresentation the buffer create update representation
      */
-    Optional<BufferUpdateResponseRepresentation> createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation) throws IOException;
+    Optional<BufferUpdateResponseRepresentation> createUpdate(final BufferCreateUpdateRepresentation bufferCreateUpdateRepresentation);
 
     /**
      * Creates a buffer update as a retweet from a previous tweet.
@@ -51,9 +51,8 @@ public interface BufferGateway {
      *
      * @param accessToken the access token
      * @return the list of buffer profiles.
-     * @throws IOException
      */
-    List<BufferProfileRepresentation> getBufferUserProfiles(final String accessToken) throws IOException;
+    List<BufferProfileRepresentation> getBufferUserProfiles(final String accessToken);
 
     /**
      * Collects the list of updates that has been sent given a date.
@@ -64,13 +63,12 @@ public interface BufferGateway {
      * @param count       the number of updates expected
      * @param timestamp   the timestamps
      * @return the list of sent buffer updates.
-     * @throws IOException
      */
     BufferUpdatesRepresentation getSentUpdates(final String profileId,
                                                final String accessToken,
                                                final int page,
                                                final int count,
-                                               final DateTime timestamp) throws IOException;
+                                               final DateTime timestamp);
 
 
     /**
@@ -82,13 +80,12 @@ public interface BufferGateway {
      * @param count       the number of updates expected
      * @param timestamp   the timestamps
      * @return the list of sent buffer updates.
-     * @throws IOException
      */
     BufferUpdatesRepresentation getPendingUpdates(final String profileId,
                                                   final String accessToken,
                                                   final int page,
                                                   final int count,
-                                                  final DateTime timestamp) throws IOException;
+                                                  final DateTime timestamp);
 
 
     /**
@@ -97,9 +94,8 @@ public interface BufferGateway {
      * @param profileId   the buffer profile ID
      * @param accessToken the buffer access token
      * @return the Buffer profile.
-     * @throws IOException
      */
-    BufferProfileRepresentation getProfile(final String profileId, final String accessToken) throws IOException;
+    BufferProfileRepresentation getProfile(final String profileId, final String accessToken);
 
     /**
      * Shuffle an existing queue:
@@ -107,7 +103,6 @@ public interface BufferGateway {
      * @param profileId   the Buffer profile ID
      * @param accessToken the Buffer access token
      * @return the response after the queue shuffling.
-     * @throws IOException
      */
-    BufferUpdateResponseRepresentation shuffleQueue(final String profileId, final String accessToken) throws IOException;
+    BufferUpdateResponseRepresentation shuffleQueue(final String profileId, final String accessToken);
 }
