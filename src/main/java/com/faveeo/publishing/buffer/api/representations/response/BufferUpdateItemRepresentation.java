@@ -1,20 +1,23 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresentation;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.joda.time.DateTime;
 
-@ToString
 @EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferUpdateItemRepresentation {
-
     public String id;
     public long created_at;
     public String day;
     public long due_at;
     public String due_time;
-    public BufferMediaItemRepresentation[] media;
+    public BufferMediaItemRepresentation media;
     public String profile_id;
     public String profile_service;
     public String status;
@@ -44,6 +47,10 @@ public class BufferUpdateItemRepresentation {
         this.via = update.via;
         this.statistics = update.statistics;
         this.service_link = update.service_link;
+    }
+
+    public DateTime toDateTime() {
+        return new DateTime(due_at * 1000L);
     }
 
     public class Mapping {

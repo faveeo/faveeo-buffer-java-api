@@ -3,25 +3,33 @@ package com.faveeo.publishing.buffer.api.representations.request;
 import com.faveeo.publishing.buffer.api.representations.BufferAccessTokenRepresentation;
 import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresentation;
 import com.faveeo.publishing.buffer.api.representations.BufferRetweetRepresentation;
-import lombok.ToString;
+import lombok.*;
 import org.joda.time.DateTime;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @ToString
 public class BufferCreateUpdateRepresentation extends BufferAccessTokenRepresentation {
 
-    public final List<String> profile_ids;
-    public final String text;
-    public final boolean shorten = true;
-    public final DateTime scheduled_at;
-    public final BufferRetweetRepresentation retweet;
-    public final Boolean now;
-    public final Boolean top;
-    public final Boolean attachment;
-    public final BufferMediaItemRepresentation media;
+    public List<String> profile_ids;
+    public String text;
+    @Builder.Default
+    public boolean shorten = true;
+    public DateTime scheduled_at;
+    public BufferRetweetRepresentation retweet;
+    public Boolean now;
+    public Boolean top;
+    public Boolean attachment;
+    public BufferMediaItemRepresentation media;
+
+    /**
+     * Instantiates a new Buffer create update representation.
+     */
+    public BufferCreateUpdateRepresentation() {
+        super("");
+    }
 
     public BufferCreateUpdateRepresentation(final String access_token, final List<String> profile_ids,
                                             final String text, final DateTime scheduled_at,
