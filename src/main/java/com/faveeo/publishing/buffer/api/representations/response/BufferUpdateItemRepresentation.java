@@ -10,9 +10,9 @@ import org.joda.time.DateTime;
 public class BufferUpdateItemRepresentation {
 
     public String id;
-    public DateTime created_at;
+    public long created_at;
     public String day;
-    public DateTime due_at;
+    public long due_at;
     public String due_time;
     public BufferMediaItemRepresentation[] media;
     public String profile_id;
