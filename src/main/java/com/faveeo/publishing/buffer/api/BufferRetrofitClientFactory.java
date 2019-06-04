@@ -25,7 +25,7 @@ public class BufferRetrofitClientFactory {
     private String bufferApiUrl = "https://api.bufferapp.com/1/"; //NON-NLS
 
     public BufferRetrofitClientFactory(final String bufferApiUrl) {
-        this.bufferApiUrl = bufferApiUrl;
+        this.bufferApiUrl = ( !bufferApiUrl.isEmpty() && bufferApiUrl.charAt(bufferApiUrl.length() - 1) == '/' ? bufferApiUrl : bufferApiUrl + '/');
     }
 
     public BufferRetrofitClientFactory() {
