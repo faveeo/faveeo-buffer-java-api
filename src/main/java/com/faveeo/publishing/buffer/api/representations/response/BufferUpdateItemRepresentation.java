@@ -6,6 +6,8 @@ import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresent
 import lombok.*;
 import org.joda.time.DateTime;
 
+import java.util.List;
+
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class BufferUpdateItemRepresentation {
     public String day;
     public long due_at;
     public String due_time;
-    public BufferMediaItemRepresentation media;
+    public List<BufferMediaItemRepresentation> media;
     public String profile_id;
     public String profile_service;
     public String status;

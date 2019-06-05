@@ -6,6 +6,8 @@ import com.faveeo.publishing.buffer.api.representations.BufferRetweetRepresentat
 import lombok.*;
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ public class BufferCreateUpdateRepresentation extends BufferAccessTokenRepresent
     public Boolean now;
     public Boolean top;
     public Boolean attachment;
-    public BufferMediaItemRepresentation media;
+    public BufferMediaItemRepresentation media = null;
 
     /**
      * Instantiates a new Buffer create update representation.
