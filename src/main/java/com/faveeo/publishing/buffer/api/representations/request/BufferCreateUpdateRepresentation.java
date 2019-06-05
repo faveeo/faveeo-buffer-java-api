@@ -15,8 +15,9 @@ public class BufferCreateUpdateRepresentation extends BufferAccessTokenRepresent
 
     public List<String> profile_ids;
     public String text;
-    @Builder.Default
+
     public boolean shorten = true;
+
     public DateTime scheduled_at;
     public BufferRetweetRepresentation retweet;
     public Boolean now;
@@ -29,6 +30,13 @@ public class BufferCreateUpdateRepresentation extends BufferAccessTokenRepresent
      */
     public BufferCreateUpdateRepresentation() {
         super("");
+    }
+
+    /**
+     * Instantiates a new Buffer create update representation.
+     */
+    public BufferCreateUpdateRepresentation(final String accessToken) {
+        super(accessToken);
     }
 
     public BufferCreateUpdateRepresentation(final String access_token, final List<String> profile_ids,
