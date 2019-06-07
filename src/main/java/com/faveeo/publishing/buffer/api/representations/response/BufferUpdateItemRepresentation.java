@@ -1,9 +1,11 @@
 package com.faveeo.publishing.buffer.api.representations.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.faveeo.publishing.buffer.api.representations.BufferMediaItemRepresentation;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.util.List;
