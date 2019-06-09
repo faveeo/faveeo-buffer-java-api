@@ -58,7 +58,7 @@ public interface BufferRetrofit {
                                                     @Query("access_token") String accessToken);
 
 
-    @GET("/profiles/{id}/updates/sent.json")
+    @GET("profiles/{id}/updates/sent.json")
     BufferUpdatesRepresentation getSentUpdatesSimplified(  @Path("id") String profileId,
                                                            @Query("access_token") String accessToken,
                                                            @Query("page") int page,
