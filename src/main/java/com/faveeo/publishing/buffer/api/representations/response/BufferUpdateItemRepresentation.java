@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.joda.time.DateTime;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -17,19 +19,31 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BufferUpdateItemRepresentation {
     public String id;
-    public long created_at;
+
+    public @NotNull Long created_at;
+
     public String day;
-    public long due_at;
+
+    public @NotNull Long due_at;
+
     public String due_time;
     public List<BufferMediaItemRepresentation> media;
-    public String profile_id;
-    public String profile_service;
+
+    public @NotBlank String profile_id;
+    public @NotBlank String profile_service;
+
     public String status;
-    public String text;
-    public String text_formatted;
+
+    public @NotBlank String text;
+    public @NotBlank String text_formatted;
+
     public String user_id;
+
     public String via;
+
+    @Builder.Default
     public BufferStatistics statistics = new BufferStatistics();
+
     public String service_link;
 
     public BufferUpdateItemRepresentation() {
