@@ -35,7 +35,7 @@
 
         <lib.spring>5.0.9.RELEASE</lib.spring>
         <lib.slf4j>1.7.25</lib.slf4j>
-        <lib.jackson.version>2.9.9</lib.jackson.version>
+        <lib.jackson.version>2.10.0</lib.jackson.version>
         <lib.logback>1.2.3</lib.logback>
         <lib.snakeyaml>1.19</lib.snakeyaml>
         <lib.springfox>2.9.2</lib.springfox>
