@@ -45,7 +45,7 @@
         <lib.commonslang3>3.8.1</lib.commonslang3>
         <lib.hc>4.5.6</lib.hc>
         <lib.micrometer>1.1.0</lib.micrometer>
-        <lib.gson>2.8.0</lib.gson>
+        <lib.gson>2.8.9</lib.gson>
     </properties>
 
     <build>
